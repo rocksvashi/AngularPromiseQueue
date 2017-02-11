@@ -54,8 +54,11 @@ app.service('RequestQueue', function($q, $timeout) {
                 queue.shift(); //remove the first item from the array
                 item.defer.resolve(data);
                 // now execute the mapper function
-                var f =  mappers.shift();
-                f(item.defer.promise);
+                if(mappers.length > 0 ){
+                	var f =  mappers.shift();
+                	f(item.defer.promise);
+                }
+                
                 // check queue length and keep dequeuing
                 if (queue.length > 0) {
                 	 dequeueAndMap(mappers);
@@ -72,7 +75,7 @@ app.service('RequestQueue', function($q, $timeout) {
             	failed.push(item);
             	// instead of rejecting, Just sending an empty array
             	// because if promise calls fails then it doesn't wait for other to finish.
-            	// and in our case we want all the calls to complete. ~rkumar
+            	// and in our case we want all the calls to complete. 
             	item.defer.resolve([]);
             	 var f =  mappers.shift();
                  f(item.defer.promise);

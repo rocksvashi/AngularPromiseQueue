@@ -2,56 +2,65 @@
 <html ng-app="rocksvashiModules">
 <head lang="en">
 <meta charset="utf-8">
-<title>Rocks Vashi</title>
+<title>Test for Promise Queue</title>
 <style>
 .ng-cloak {
 	display: none;
 }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
 </style>
 </head>
 
 <body ng-controller="MainCtrl">
 	<h1>{{name}}</h1>
 	<button ng-click='start()'>Start Queue</button>
-	
+
 	<h1 ng-show="!hide">
 		<img
 			src="http://minisites.mmkgroup.com.mx/extrememakeover2016/img/final/gatoloading.gif" />
-		Loading...
 	</h1>
 	<span ng-hide="!hide">
-		<div ng-repeat='r in results track by $index'>Result: {{r}}</div>
-		
-		
-	<table>
-	<tr>
-				<td>albumId</td>
-				<td>title</td>
-			</tr>
-	
-	<tr ng-repeat='r in posts1 track by $index' >
-				<td>{{r.id}}</td>
-				<td>{{r.body}}</td>
-			</tr>
-	</table>
-		<table width="100%" >
+	<h1>Todo's</h1>
+		<table width="100%">
 			<tr>
-				<td>albumId</td>
-				<td>title</td>
-				<td>url</td>
-				<td>thumbnail url</td>
+				<th>Id</th>
+				<th>Title</th>
+				<th>Completed</th>
 			</tr>
-			<tr ng-repeat='r in posts track by $index'  on-last-item="callback1();">
+			<tr ng-repeat='r in todos track by $index'>
 				<td>{{r.id}}</td>
-				<td><input type="text" value="{{r.title}}" width="250px" height="25px" /></td>
-				<td><input type="text" value="{{r.url}}" width="250px" height="25px" /> </td>
-				<td><input type="text" value="{{r.thumbnailUrl}}" width="250px" height="25px" /></td>
+				<td>{{r.title}}</td>
+				<td>{{r.completed}}</td>
 			</tr>
-			
+		</table>
+		
+		<h1>Albums</h1>
+		<table width="100%">
+			<tr>
+				<th>albumId</th>
+				<th>title</th>
+			</tr>
+			<tr ng-repeat='r in albums track by $index '>
+				<td><input type="text" value="{{r.id}}" /></td>
+				<td><input type="text" value="{{r.title}}" /></td>
+			</tr>
+
 		</table>
 	</span>
 </body>
 </html>
+<!--  Load all the required JS files. -->
 <script src="angular.min.js"></script>
 <script src="angular-resource.min.js"></Script>
 <script src="app.js"></script>

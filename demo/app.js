@@ -1,72 +1,59 @@
-var app = angular.module('rocksvashiModules', ['ngResource']);
+var app = angular.module('rocksvashiModules', [ 'ngResource' ]);
 
+// will track the last item on the ng repeat
+// on-last-item="handlePageLoader();"
 app.directive('onLastItem', function($timeout, RequestQueue) {
-	  return function(scope, element, attrs) {
-		    if (scope.$last){
-		    	$timeout(function() {
-			    	scope.$eval(attrs.onLastItem)
-		    	}, 200);
-		    }
-		  };
+	return function(scope, element, attrs) {
+		if (scope.$last) {
+			$timeout(function() {
+				scope.$eval(attrs.onLastItem)
+			}, 200);
+		}
+	};
 });
 
-app.controller('MainCtrl', function($q, $scope, RequestQueue, $RestService, $timeout) {
-    $scope.name = 'Testing Queue';
-    $scope.results = [];
-    $scope.posts = [];
-    
-    $scope.posts1 = [];
-    $scope.count = 0;
-    
-    $scope.callback = function() {
-    	 $timeout(function() {
-         	$scope.hide = true}, 
-         	200);
-    };
-    
-    $scope.getData = function() {
-    	return $RestService('https://jsonplaceholder.typicode.com/photos', null, true).list();
-    }
-    
-    
-    $scope.getData1 = function() {
-    	
-    	return  $RestService('https://jsonplaceholder.typicode.com/posts', null, true).list();
-    }
-    
-    $scope.promise1 = function(p) {
-    	p.then(function(result) {
-    		console.log(result)
-    		$scope.photos(result);
-    	});
-    }
+app.controller('MainCtrl', function($q, $scope, RequestQueue, RestService, $timeout) {
+	$scope.name = 'Testing Queue';
+	$scope.albums = [];
+	$scope.todos = [];
 
-    $scope.promise3 = function(p) {
-    	p.then(function(result) {
-    		$scope.posts1 = result;
-    	});
-}
-    
-    // nested call where parent call inside queue
-    $scope.photos = function(items) {
-    	$scope.posts = items;
-    	//temp sleep method
-    	// var start = new Date().getTime();
-        // while (new Date().getTime() < start + 5000);
-    	// we can further use queue to process nested calls or simple restapi call
-    	/*RequestQueue.enqueue( 
-    	$RestService('https://jsonplaceholder.typicode.com/photos/'+items[90].id).resource(), null, "Nested").process().then(function(result) {
-            $scope.results.push(result[0].id);
-        });
-        */
-    }
-    
-    $scope.start = function() {
-    	RequestQueue.enqueue([
-                $scope.getData(),
-                $scope.getData1(),
-            ],
-            $scope.callback, "Outer").processAndMap([ $scope.promise1, $scope.promise3]);
-    };
-    
+	$scope.handlePageLoader = function() {
+		$timeout(function() {
+			$scope.hide = true
+		},
+		200);
+	};
+	
+	// Fetches the {@code Album} list
+	$scope.getAlbumData = function() {
+		return RestService('https://jsonplaceholder.typicode.com/posts', null, true).list();
+	}
+
+	// Fetches the {@code Todo's} list
+	$scope.getTodos = function() {
+		return RestService('https://jsonplaceholder.typicode.com/todos', null, true).list();
+	}
+
+	// Handles the response for the Album list
+	$scope.albumHandler = function(promise) {
+		promise.then(function(response) {
+			$scope.albums = response;
+		});
+	}
+
+	// Handles the response for the Todo's list
+	$scope.todosHandler = function(promise) {
+		promise.then(function(response) {
+			$scope.todos = response;
+		});
+	}
+
+	$scope.start = function() {
+		RequestQueue.enqueue([
+			$scope.getAlbumData(),
+			$scope.getTodos(),
+		],
+		$scope.handlePageLoader, "MainQueue").processAndMap([$scope.albumHandler, $scope.todosHandler ]);
+	};
+
 });
