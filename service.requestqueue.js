@@ -1,45 +1,3 @@
-/*
- *  The RequestQueue service represents a FIFO queue of REST Endpoints or Any promise objects.
- *  It supports enqueue and dequeue the items (Endpoint) invocation in FIFO order.
- *   
- *  Usage:
- *  RequestQueue.enqueue([
-        		vm.getFirstObject(4),
-                vm.getSecondObject(5),
-               	vm.getThirdObject({key:111}),
-            ],
-            $scope.callback).process().then(function(result) {
-                // response will be returned in call seq
-	            $scope.first.push(result[0].id);
-	            $scope.second = result[1];
-	            $scope.third.push(result[2].id);
-        });
- * 
- * OR process and map response as the response is returned
- * RequestQueue.enqueue([
-                $scope.getFirstObject(),
-                $scope.getSecondObject(),
-            ],
-            $scope.callback, "Outer").processAndMap([ $scope.responseHandlerFirstObject, $scope.responseHandlerSecondObject]);
- *  
- *  
- *  OR we can also put functions which return promise object
- *  e.g 
- *  vm.func = function () {
- *  return $q(function(resolve, reject) {
-    setTimeout(function() {
-      if (callSomeDataEntryFunction(args)) {
-        resolve(args);
-      } else {
-        reject(args);
-      }
-    }, 1000);
-  });
-  *
-  * RequestQueue.enqueue(vm.func).process().then(function(result) {...}));
-  * 
-  * 
- */
 app.service('RequestQueue', function($q, $timeout) {
     var queue = null;
     var promises = [];
@@ -96,8 +54,11 @@ app.service('RequestQueue', function($q, $timeout) {
                 queue.shift(); //remove the first item from the array
                 item.defer.resolve(data);
                 // now execute the mapper function
-                var f =  mappers.shift();
-                f(item.defer.promise);
+                if(mappers.length > 0 ){
+                	var f =  mappers.shift();
+                	f(item.defer.promise);
+                }
+                
                 // check queue length and keep dequeuing
                 if (queue.length > 0) {
                 	 dequeueAndMap(mappers);
@@ -114,7 +75,7 @@ app.service('RequestQueue', function($q, $timeout) {
             	failed.push(item);
             	// instead of rejecting, Just sending an empty array
             	// because if promise calls fails then it doesn't wait for other to finish.
-            	// and in our case we want all the calls to complete. ~rkumar
+            	// and in our case we want all the calls to complete. 
             	item.defer.resolve([]);
             	 var f =  mappers.shift();
                  f(item.defer.promise);
