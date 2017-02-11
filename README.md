@@ -52,16 +52,16 @@ Type: `String`<br>
 A name for the queue.
 
 #### After Queue is inititated, Chain the process methods i.e
-'''js
+```js
 RequestQueue([arrayOfRemoteCallFunctions], callback, queueKey).process().then(promiseArray) {
  ...
 }
-'''
+```
 
 <h3>Or</h3>
-'''js
+```js
 RequestQueue([arrayOfRemoteCallFunctions], callback, queueKey).processAndMap([$scope.albumHandler, $scope.todosHandler ]);
-'''
+```
 
 ## Created by
 - [RocksVashi](https://github.com/rocksvashi)
