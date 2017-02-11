@@ -51,7 +51,7 @@ To hide the loader when queue is done.
 Type: `String`<br>
 A name for the queue.
 
-#### After Queue is inititated, Chain the process methods i.e
+#### After Queue is initiated, Chain the process methods i.e
 ```js
 RequestQueue([arrayOfRemoteCallFunctions], callback, queueKey).process().then(promiseArray) {
  ...
@@ -60,7 +60,7 @@ RequestQueue([arrayOfRemoteCallFunctions], callback, queueKey).process().then(pr
 
 <h3>Or</h3>
 ```js
-RequestQueue([arrayOfRemoteCallFunctions], callback, queueKey).processAndMap([$scope.albumHandler, $scope.todosHandler ]);
+RequestQueue([$scope.getFoo(), $scope.getBar()], callback, queueKey).processAndMap([$scope.fooHandler, $scope.barHandler ]);
 ```
 
 ## Created by
