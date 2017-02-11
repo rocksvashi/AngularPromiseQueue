@@ -1,7 +1,8 @@
 ## Angular Promise Queue
 For any complex page which requires lots of parallel calls to fetch data and display on the UI, it is sometimes difficult to display the data as an atomic operation, i.e all XHR request are not sequential and response will be rendered as and when it's received by the browser client, This leads to flickering of the data on the UI. 
 <p>
-To avoid that, we can use this API to queue all the remote(XHR) request into a queue and display a loader image on the view and hide it when all the calls are done. This will help in displaying the data on the view as single atomic operation.
+To avoid that, we can use this API to queue all the remote(XHR) requests and display a loader image on the view and hide it when all the calls are done. 
+This will help in displaying the data on the view as a single atomic operation.
 </p>
 
 ```js
