@@ -64,7 +64,7 @@ RequestQueue([$scope.getFoo(), $scope.getBar()], callback, queueKey).processAndM
 - [RocksVashi](https://github.com/rocksvashi)
 
 ###NOTE
-This is a very initial version of this API, I am very much open for suggestions/improvements.
+This is a very initial version of this API, I am very much open for suggestions/improvements. Feel free to contribute by forking, opening issues, pull requests etc.
 
 ## License
 GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
