@@ -2,13 +2,13 @@ app.factory('RestService', function($resource) {
 
     return function(url, obj, isArray) {
 
-    	var mapper = {
+    	var mappers = {
             list: {
                 method: 'GET',
                 isArray: isArray
             }
         };
 
-        return $resource(url, null, mapper);
+        return $resource(url, null, mappers);
     };
 });

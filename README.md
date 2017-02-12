@@ -1,7 +1,8 @@
 ## Angular Resource Request Queue
-An easy interface to queue all the XHR request on the page and display the response as an atomic operation.
+An easy interface to queue up all the XHR requests on the page and display the response of each call by grouping them as an atomic operation.
+This helps avoiding the data flickering on the page. This API uses $q module of Angular.
 <br />
-This API also provides a support to perform any callback task after queue is done processing items i.e hiding loader gif etc.
+This API also provides a support to perform any callback task after the request queue is done processing i.e hiding page loader etc.
 </p>
 
 #### Examples
