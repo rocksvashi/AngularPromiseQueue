@@ -32,12 +32,7 @@ This API also provides a support to perform any callback task after the request 
             $scope.handlePageLoader, "QueueName").processAndMap([ $scope.responseHandlerFirstObject, $scope.responseHandlerSecondObject]);
 
 ```
-
-
-## Integrating on the page
-<script src="service.requestqueue.js" ></script>
-
-## API
+## API Info
 
 ### RequestQueue([arrayOfRemoteCallFunctions], callback, queueKey)
 
