@@ -23,7 +23,7 @@ This API also provides a support to perform any callback task after the request 
         });
 
 	 // Example 2
-	// Queue up all the calls and keep processing(rendering) the response as and when response is ready on the view.
+	// Queue up all the calls and keep processing(rendering) the response as and when response is ready for the view.
 	// This is possible via passing the mapper functions i.e response handlers for each remote call.
 	RequestQueue.enqueue([
                 $scope.getFirstObject(),
