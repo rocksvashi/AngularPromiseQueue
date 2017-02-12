@@ -17,9 +17,9 @@ This API also provides a support to perform any callback task after the request 
             ],
             $scope.handlePageLoader).process().then(function(result) {
                 // response will be returned in call seq
-	            $scope.first.push(result[0].id);
+	            $scope.first.push(result[0]);
 	            $scope.second = result[1];
-	            $scope.third.push(result[2].id);
+	            $scope.third.push(result[2]);
         });
 
 	 // Example 2
