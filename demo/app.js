@@ -50,8 +50,8 @@ app.controller('MainCtrl', function($q, $scope, RequestQueue, RestService, $time
 
 	$scope.start = function() {
 		RequestQueue.enqueue([
-			$scope.getAlbumData(),
-			$scope.getTodos(),
+			$scope.getAlbumData,
+			$scope.getTodos,
 		],
 		$scope.handlePageLoader, "MainQueue").processAndMap([$scope.albumHandler, $scope.todosHandler ]);
 	};

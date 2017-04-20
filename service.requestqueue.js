@@ -12,7 +12,7 @@
         console.log("Processing queue " + service.key);
         var item = queue[0]; //pick the front element of the queue
         // execute the endpoint
-        item.endpoint.$promise.then(function(data) {
+        item.endpoint().$promise.then(function(data) {
             queue.shift(); //remove the first item from the array
             item.defer.resolve(data);
             success.push(item)
@@ -55,7 +55,7 @@
         var item = queue[0]; //pick the front element of the queue
 
         // execute the endpoint
-        item.endpoint.$promise.then(function(data) {
+        item.endpoint().$promise.then(function(data) {
             queue.shift(); //remove the first item from the array
             item.defer.resolve(data);
             // now execute the mapper function
